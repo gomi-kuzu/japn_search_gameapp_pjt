@@ -30,7 +30,7 @@ search_button.addEventListener('click', function(e) {
         {query: prefix + myquery},
         success, "json"
         );
-    
+        
         function success(data){
         console.log(data.results.bindings);
         if(data.results.bindings.length == 0){

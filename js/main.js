@@ -30,7 +30,11 @@ search_button.addEventListener('click', function(e) {
         {query: prefix + myquery},
         success, "json"
         );
-        
+
+        for (let i = 0; i < 4; i++) {
+            init_show_label(i);
+        }    
+
         function success(data){
         console.log(data.results.bindings);
         if(data.results.bindings.length == 0){
@@ -52,3 +56,6 @@ function show_label(num){
     document.getElementById('result_label' + num).textContent = datas.results.bindings[num].label.value
 }
 
+function init_show_label(num){
+    document.getElementById('result_label' + num).textContent = ""
+}

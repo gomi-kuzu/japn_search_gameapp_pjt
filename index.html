@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+   <script src="js/materialize.js"></script>
+    <title>Sample</title>
+  </head>
+   <body>
+
+<div class="container">
+   <form class="col s12 center">
+      <div class="row">
+         <div class="input-field col-md-6">
+            <input id="search_word" type="text" class="validate" value="東京">
+            <label for="search_word">検索ワード</label>
+         </div>
+         <span class="red-text text-lighten-1">  
+            <div id="warning"></div>
+         </span>
+
+      </div>
+   </form>
+　<div class="row">
+   <div class="col s12 center">
+      <div id="search_button">
+         <a class="waves-effect waves-light btn-large z-depth-4">検索</a>
+      </div>      
+   </div>
+   <br>
+   <div class="col s3 center">
+      <img id="result_img0" src="" onclick="show_label(0)">
+      <div id="result_label0"></div>
+   </div>
+   <div class="col s3 center">
+      <img id="result_img1" src="" onclick="show_label(1)">
+      <div id="result_label1"></div>
+   </div>
+   <div class="col s3 center">
+      <img id="result_img2" src="" onclick="show_label(2)">
+      <div id="result_label2"></div>
+   </div>
+   <div class="col s3 center">
+      <img id="result_img3" src="" onclick="show_label(3)">
+      <div id="result_label3"></div>
+   </div>
+
+
+</div>
+<script src="js/prefix.js"></script>
+<script src="js/main.js"></script>
+
+   </body>
+</html>

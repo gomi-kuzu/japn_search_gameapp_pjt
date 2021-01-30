@@ -4,7 +4,9 @@ var use_idx_p = null;
 var use_idx_c = null;
 search_button.addEventListener('click', function(e) {
     var url = "https://jpsearch.go.jp/rdf/sparql";
-    var key_word = String(document.getElementById("search_word").value);
+    // var key_word = String(document.getElementById("search_word").value);
+    var key_word = "a";
+    var pear_num = 1;
 
     if(key_word.length == 0) {
         // console.log("kake!");
@@ -44,7 +46,7 @@ search_button.addEventListener('click', function(e) {
         // `"))}LIMIT 1000`
         // ;
         
-        set_query(1,``,``,``,``);
+        set_query(5,``,``,``,``);
 
 
         $.get(
@@ -53,8 +55,10 @@ search_button.addEventListener('click', function(e) {
         success, "json"
         );
 
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < pear_num; i++) {
             init_show_label_and_creator(i);
+            init_show_label_and_creator(i+pear_num);
+
         }    
 
         function success(data){
@@ -68,16 +72,16 @@ search_button.addEventListener('click', function(e) {
 
             datas = data;
             const minitues = [...Array(data.results.bindings.length).keys()]
-            use_idx_p = choose_at_random(minitues, 4)
+            use_idx_p = choose_at_random(minitues, pear_num)
             use_idx_c = []
             console.log(use_idx_p)
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < pear_num; i++) {
                 $('#result_img'+ String(i)).attr('src', data.results.bindings[use_idx_p[i]].thumbnail.value);
                 var child_num = get_pair_author(data.results.bindings[use_idx_p[i]].o.value, use_idx_p[i],data)
                 console.log(child_num)
                 use_idx_c.push(child_num)
                 console.log(data.results.bindings[use_idx_p[i]].o.value, data.results.bindings[child_num].o.value)
-                $('#result_img'+ String(i+4)).attr('src', data.results.bindings[child_num].thumbnail.value);
+                $('#result_img'+ String(i+pear_num)).attr('src', data.results.bindings[child_num].thumbnail.value);
                 // console.log( getImageUrl(data.results.bindings[use_idx[i]].thumbnail.value) )
               }
             
@@ -185,6 +189,28 @@ function set_query(mode, key_word, author, where, age){
         ;
     }
 
+    if (mode == 5){
+        myquery = `
+        SELECT ?s ?label ?thumbnail ?type ?time ?provider ?o (count(?thumbnail) as ?count) 
+        WHERE {?s schema:image ?thumbnail ;  
+                rdfs:label ?label;
+                schema:creator ?creator;
+                a type:絵画; 
+                jps:temporal/jps:era/rdfs:label ?time;
+                jps:accessInfo/schema:provider/rdfs:label ?provider;
+                schema:creator/rdfs:label ?o;
+        `
+        +
+        `
+        jps:accessInfo/schema:license ?license .
+	    ?license dct:isVersionOf?/schema:category ?lcategory .
+        FILTER(?lcategory = pds:AllowCommercial || ?lcategory = pds:NonCommercialOnly)
+        `
+        +
+        `}LIMIT 3000`
+        ;
+    }
+
 
 }
 
@@ -206,9 +232,9 @@ function show_label_and_creator(num){
 
 }
 
-function show_label_and_creator_c(num){
-    document.getElementById('result_label' + num).textContent = datas.results.bindings[use_idx_c[num-4]].label.value
-    document.getElementById('result_creator' + num).textContent = datas.results.bindings[use_idx_c[num-4]].o.value + "：作"
+function show_label_and_creator_c(num, pear_num){
+    document.getElementById('result_label' + (num + pear_num)).textContent = datas.results.bindings[use_idx_c[num]].label.value
+    document.getElementById('result_creator' + (num + pear_num )).textContent = datas.results.bindings[use_idx_c[num]].o.value + "：作"
 }
 
 
@@ -216,6 +242,7 @@ function init_show_label_and_creator(num){
     document.getElementById('result_label' + num).textContent = ""
     document.getElementById('result_creator' + num).textContent = ""
 }
+
 
 function choose_at_random(arrayData, count) {
     // countが設定されていない場合は1にする

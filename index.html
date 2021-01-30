@@ -14,8 +14,12 @@
    <form class="col s12 center">
       <div class="row">
          <div class="input-field col-md-6">
-            <input id="search_word" type="text" class="validate" value="ーー">
-            <label for="search_word">きにしないで</label>
+            <!-- <input id="search_word" type="text" class="validate" value="ーー">
+            <label for="search_word">きにしないで</label> -->
+         『GET』を押すたびにJapan serchから同じ作者の絵画のペアを作って表示します。表示された絵を押すとタイトルと作者の表示。
+         <br>
+         絵が表示されない時は登録リンク先にjpgがありません。。。
+
          </div>
          <span class="red-text text-lighten-1">  
             <div id="warning"></div>
@@ -30,7 +34,7 @@
       </div>      
    </div>
    <br>
-   <div class="col s3 center">
+   <!-- <div class="col s3 center">
       <img id="result_img0" src="" onclick="show_label_and_creator(0)">
       <div id="result_label0"></div>
       <div id="result_creator0"></div>
@@ -77,7 +81,22 @@
       <div id="result_label7"></div>
       <div id="result_creator7"></div>
 
+   </div> -->
+
+   <div class="col s12 center">
+      <img id="result_img0" src="" onclick="show_label_and_creator(0)">
+      <div id="result_label0"></div>
+      <div id="result_creator0"></div>
+
    </div>
+
+   <div class="col s12 center">
+      <img id="result_img1" src="" onclick="show_label_and_creator_c(0, 1)">
+      <div id="result_label1"></div>
+      <div id="result_creator1"></div>
+
+   </div>
+
 
 </div>
 <script src="js/prefix.js"></script>
